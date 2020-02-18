@@ -502,7 +502,7 @@
 <require_name_match>0</require_name_match>
 <reschg>1</reschg>
 <rng>1</rng>
-<rts>1</rts>
+<rts>0</rts>
 <sbs>100000</sbs>
 <sce>
 <idv>
@@ -553,11 +553,11 @@
 <sdv>Primary Sound Driver</sdv>
 <show_dis>0</show_dis>
 <show_parm>0</show_parm>
-<show_term>0</show_term>
+<show_term>1</show_term>
 <smc>1</smc>
 <smd>16</smd>
 <smr>44100</smr>
-<srs>1</srs>
+<srs>0</srs>
 <ssb>2000</ssb>
 <sse>
 <s>
