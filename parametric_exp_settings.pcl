@@ -7,3 +7,4 @@ array <int> order_16intervals[] = {2, 10, 12, 5, 8, 3, 14, 4, 16, 13, 1, 6, 9, 1
 # the number of repetition of sequence of each conditions
 int setting_interval_in_block = 480; # all block will have 480 intervals regardless of conditions
 int setting_deviant_in_block = 96; # 96 trials will be deviant
+int setting_maximum_same_pattern = 3; # the maximum allowed number of the same sequence pattern in a row

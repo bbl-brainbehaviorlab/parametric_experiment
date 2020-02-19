@@ -65,3 +65,71 @@ begin
 	
 	return(stim_list);
 end; # END OF assignDeviant
+
+
+# create the list of stimuli of all trials in this block according to the regular_cond and interval_cond
+# regular_cond (1: regular, 2: irregular)
+# interval_cond (1, 2, 4, 16)
+sub
+	array<int,1> getBlockStimList(int regular_cond, int interval_cond)
+begin
+	# initialize a result variable
+	array <int> stim_index_of_whole_block[0];
+
+	# get the according regular order list based on the condition
+	array <int> regular_order_list[0];
+	if interval_cond == 1 then
+		regular_order_list.append(order_1intervals);
+	end;
+	if interval_cond == 2 then
+		regular_order_list.append(order_2intervals);
+	end;
+	if interval_cond == 4 then
+		regular_order_list.append(order_4intervals);
+	end;
+	if interval_cond == 16 then
+		regular_order_list.append(order_16intervals);
+	end;
+
+	if regular_cond == 1 then
+		loop int i = 1 until i > (setting_interval_in_block / interval_cond) begin # the sequence will repeat for [480 / 4 intervals] times
+			stim_index_of_whole_block.append(regular_order_list);
+			i = i+1;
+		end;
+	end; # END OF regular_cond==1
+
+	# for irregular condition, the same pattern should not repeat more than 3 times (3 time is allowed)
+	if regular_cond == 2 then
+
+		# initialize variable for checking
+		array <int> last_sequence[0];
+		int same_pattern_counter = 1;
+
+		loop int i = 1 until i > (setting_interval_in_block / interval_cond) begin
+			array <int> this_sequence[] = regular_order_list;
+			this_sequence.shuffle();
+
+			if last_sequence.count() != 0 && this_sequence == last_sequence then
+				same_pattern_counter = same_pattern_counter + 1;
+				if same_pattern_counter > setting_maximum_same_pattern then
+					loop until this_sequence != last_sequence begin
+						this_sequence.shuffle();
+					end;
+					same_pattern_counter = 1;
+				end;
+
+			else
+				same_pattern_counter = 1;
+			end;
+			#term.print(same_pattern_counter);term.print(",");
+
+			stim_index_of_whole_block.append(this_sequence);
+
+			last_sequence.assign(this_sequence);
+			i = i + 1;
+		end;
+	end; # END of regular_cond == 2
+
+	return(stim_index_of_whole_block);
+
+end;
