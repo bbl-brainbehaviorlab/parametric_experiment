@@ -1,0 +1,69 @@
+# Return a 2d-array. One states the interval index, another states whether it is deviant
+sub 
+	array<int,2> assignDeviant(int interval_cond, array<int> index_of_whole_block[])
+begin
+	#initialize the array going to be returned
+	array <int> stim_list[2][setting_interval_in_block]; # 2 elements
+
+
+	# create the list of whether this is deviant of this block (1 = deviant, 0 = standard)
+	array <int> whether_deviant[setting_interval_in_block];
+	#whether_deviant.fill(1, setting_deviant_in_block, 1, 0);
+	#whether_deviant.fill(setting_deviant_in_block+1, setting_interval_in_block, 0,0);
+	# initialize it to be all zeros
+	whether_deviant.fill(1, whether_deviant.count(),0,0);
+
+	# assign 96 deviant to it
+	# initialize a counter of an interval being deviant
+	array <int> counter_deviant[interval_cond]; # [1] will store the number of time of the 1st interval, [2] stores 2nd interval...
+	int max_time_being_deviant = setting_deviant_in_block/interval_cond; # the maximum number of time of each interval being a deviant
+
+	loop int i = 1 until i > setting_deviant_in_block begin # for each deviant
+		
+		# try to insert it to a random position. Insert will only be successful when all conditions met
+		loop bool insert_successful = false until insert_successful == true begin
+			# get a random index for inserting the deviant
+			int insert_position = random(1, setting_interval_in_block); 
+			
+			#only turn it to deviant when it is not one yet. The backward and forward 3 trials should not be deivant
+			bool have_deviant_forward_backward = false;
+			int num_backward_forward = 2;
+			loop int j = 1 until j > num_backward_forward begin
+				if insert_position + j <= setting_interval_in_block then # check whether it is out of bound
+					if whether_deviant[insert_position + j] == 1 then
+						have_deviant_forward_backward = true;
+						break;
+					end;
+				end;
+				
+				if insert_position - j >= 1 then # check whether it is out of bound
+					if whether_deviant[insert_position - j] == 1 then
+						have_deviant_forward_backward = true;
+						break;
+					end;
+				end; 
+				
+				j = j + 1;
+			end;#end of looping backward / forward
+			
+			if whether_deviant[insert_position] == 0 && have_deviant_forward_backward == false then 
+				int insert_target_stim_index = index_of_whole_block[insert_position]; # get which stimulus this trial is
+				# check the counter array to see whether this stim not yet exceed maximum deviant num
+				if counter_deviant[insert_target_stim_index] < max_time_being_deviant then
+					whether_deviant[insert_position] = 1;
+					counter_deviant[insert_target_stim_index] = counter_deviant[insert_target_stim_index] +1;
+					insert_successful = true;
+				end; # end of if the stim not yet exceed max time
+			end; # end of if position is 0
+		end;
+		
+		i = i + 1;
+	end;
+
+	stim_list[1] = index_of_whole_block;
+	stim_list[2] = whether_deviant;
+	
+	term.print_line(counter_deviant);
+	
+	return(stim_list);
+end; # END OF assignDeviant
