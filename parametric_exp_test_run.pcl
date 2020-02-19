@@ -1,13 +1,20 @@
-# try the 4-interval regular condition first
-int this_interval_cond = 1;
+# # try the 4-interval regular condition first
+# int this_interval_cond = 2;
 
-# create the list of stimuli of all trials in this block
-array <int> this_index_of_whole_block[0];
-loop int i = 1 until i > (setting_interval_in_block / this_interval_cond) begin # the sequence will repeat for [480 / 4 intervals] times
-	this_index_of_whole_block.append(order_1intervals);
-	i = i+1;
-end;
 
-array <int> stimList[][] = assignDeviant(this_interval_cond, this_index_of_whole_block);
-term.print_line(stimList[1]);
-term.print_line(stimList[2]);
+# array<int> this_index_of_whole_block[] = getBlockStimList(2,this_interval_cond);
+# array <int> stimList[][] = assignDeviant(this_interval_cond, this_index_of_whole_block);
+# term.print_line(stimList[1]);
+# term.print_line(stimList[2]);
+
+# array<int> a[] = {2,2,3,4};
+# array<int> b[] = {2,2,3,4};
+# bool test;
+# test = a == b;
+# term.print_line(test);
+
+# array<int> a[] = {2,2,3,4};
+# a = {9,9,9,9,};
+
+# term.print_line(a);
+runBlock(1,1,16);

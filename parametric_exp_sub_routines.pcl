@@ -25,7 +25,7 @@ begin
 			
 			#only turn it to deviant when it is not one yet. The backward and forward 3 trials should not be deivant
 			bool have_deviant_forward_backward = false;
-			int num_backward_forward = 2;
+			int num_backward_forward = setting_deviant_min_trial_apart;
 			loop int j = 1 until j > num_backward_forward begin
 				if insert_position + j <= setting_interval_in_block then # check whether it is out of bound
 					if whether_deviant[insert_position + j] == 1 then
@@ -131,5 +131,74 @@ begin
 	end; # END of regular_cond == 2
 
 	return(stim_index_of_whole_block);
+
+end;
+
+
+# a routine to set the sound stimulus in each trial
+# it will also return the wav file duration
+sub 
+	double setSoundStim(int deviant_cond, array<sound,1> normal_sound, array<sound,1> rotate_sound, int stim_id, int is_deviant) 
+begin
+	
+	# should always be active so that false alarm / hit can be recorded
+	
+	sound the_stim;
+
+	# rotate as deviant
+	if deviant_cond == 1 && is_deviant == 0 then
+		the_stim = normal_sound[stim_id];
+	end;
+	if deviant_cond == 1 && is_deviant == 1 then
+		the_stim = rotate_sound[stim_id]
+	end;
+
+	# rotate as normal
+	if deviant_cond == 2 && is_deviant == 0 then
+		the_stim = rotate_sound[stim_id]
+	end;
+	if deviant_cond == 2 && is_deviant == 1 then
+		the_stim = normal_sound[stim_id];
+	end;
+
+	sound_event.set_stimulus(the_stim);
+	sound_event.set_target_button(is_deviant); # when it is not deviant, the target button should set to 0; when it is deviant, target button set to 1;
+	if is_deviant == 1 then
+		sound_event.set_stimulus_time_in(setting_response_window_start);
+		sound_event.set_stimulus_time_out(setting_response_window_end);
+	end;
+
+	return(the_stim.get_wavefile().duration())
+
+end;
+
+
+# the routine to run the block given different conditions
+sub
+	runBlock(int deviant_cond, int regular_cond, int interval_cond)
+begin
+
+	##### Things to set before the whole block starts #####
+	array <int> this_block_stim_list[] = getBlockStimList(regular_cond, interval_cond);
+	array <int> this_block_stim_deviant[][] = assignDeviant(interval_cond, this_block_stim_list);
+
+	# Find the according sound files of this interval_cond
+	array <sound> normal_sound[0];
+	array <sound> rotate_sound[0];
+	if interval_cond == 1 then normal_sound.assign(soundfiles_1intervals); rotate_sound.assign(soundfiles_1intervals_rotated); end;
+	if interval_cond == 2 then normal_sound.assign(soundfiles_2intervals); rotate_sound.assign(soundfiles_2intervals_rotated); end;
+	if interval_cond == 4 then normal_sound.assign(soundfiles_4intervals); rotate_sound.assign(soundfiles_4intervals_rotated); end;
+	if interval_cond == 16 then normal_sound.assign(soundfiles_16intervals); rotate_sound.assign(soundfiles_16intervals_rotated); end;
+
+	##### END OF Things to set before the whole block starts #####
+
+	# loop through trials
+	loop int i = 1 until i > this_block_stim_list.count() begin
+		double wav_file_duration = setSoundStim(deviant_cond, normal_sound, rotate_sound, this_block_stim_deviant[1][i], this_block_stim_deviant[2][i]);
+		sound_event.set_event_code("test;"+string(this_block_stim_deviant[1][i]) + ";" + string(wav_file_duration) +";main;" + string(deviant_cond) + ";" + string(regular_cond)+";"+string(interval_cond)+";"+string(this_block_stim_deviant[2][i]));
+		sound_trial.present();
+		i = i + 1;
+	end; 
+	
 
 end;

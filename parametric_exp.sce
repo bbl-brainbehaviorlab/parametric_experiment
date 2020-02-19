@@ -3,7 +3,7 @@
 
 response_matching = simple_matching;
 default_clear_active_stimuli = false;
-response_logging = log_active; #only active buttons set by response_manager will be logged to the log file
+response_logging = log_all; 
 
 active_buttons = 1; # only one button (e.g. spacebar) is needed
 button_codes = 1;
@@ -14,11 +14,12 @@ default_background_color = 211, 211, 211;
 
 stimulus_properties = counter_balance_id, string, 
 							stimuli_file, string, 
+							wav_file_duration, string,
 							practice_main, string,
 							deviant_condition, string, 
 							regularity_condition, string,
 							interval_condition, string,
-							standard_deviant, string,
+							is_deviant, string,
 							blockIndex, string,
 							remark, string;
 event_code_delimiter = ";";
@@ -121,5 +122,7 @@ trial {
 #------------------------- PCL -------------------------------------
 begin_pcl;
 
-include "parametric_exp.pcl";
+include "parametric_exp_settings.pcl";
+include "parametric_exp_sub_routines.pcl";
+include "parametric_exp_test_run.pcl";
 
