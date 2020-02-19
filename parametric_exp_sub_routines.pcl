@@ -8,8 +8,6 @@ begin
 
 	# create the list of whether this is deviant of this block (1 = deviant, 0 = standard)
 	array <int> whether_deviant[setting_interval_in_block];
-	#whether_deviant.fill(1, setting_deviant_in_block, 1, 0);
-	#whether_deviant.fill(setting_deviant_in_block+1, setting_interval_in_block, 0,0);
 	# initialize it to be all zeros
 	whether_deviant.fill(1, whether_deviant.count(),0,0);
 
