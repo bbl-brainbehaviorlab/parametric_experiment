@@ -4,8 +4,8 @@ array <int> order_2intervals[] = {1,2};
 array <int> order_4intervals[] = {2,1,3,4};
 array <int> order_16intervals[] = {2, 10, 12, 5, 8, 3, 14, 4, 16, 13, 1, 6, 9, 15, 11, 7};
 
-int setting_interval_in_block = 512; # all block will have 480 intervals regardless of conditions
-int setting_deviant_in_block = 80; # 96 trials will be deviant
+int setting_interval_in_block = 512; # all block will have 512 intervals regardless of conditions
+int setting_deviant_in_block = 64; 
 int setting_deviant_min_trial_apart = 3; # the minimum number of standard in between 2 deviants (2 deviants are not included in the number)
 int setting_maximum_same_pattern = 3; # the maximum allowed number of the same sequence pattern in a row
 

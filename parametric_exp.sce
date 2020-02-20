@@ -5,8 +5,14 @@ response_matching = simple_matching;
 default_clear_active_stimuli = false;
 response_logging = log_all; 
 
+### Uncomment these 3 lines after port is set
+#write_codes = true;  # this will allow user defined code ported to the output port
+#pulse_width = 6; #length of EEG trigger in miliseconds, may need to adjust depending on EEG sampling rate
+#response_port_output = true; # this allow porting the subject response
+
 active_buttons = 1; # only one button (e.g. spacebar) is needed
 button_codes = 1;
+target_button_codes = 1;
 
 default_text_color = 0, 0, 0;    # use black as default
 default_font_size = 30;
@@ -21,7 +27,7 @@ stimulus_properties = counter_balance_id, string,
 							interval_condition, string,
 							is_deviant, string,
 							blockIndex, string,
-							remark, string;
+							my_port_code, number;
 event_code_delimiter = ";";
 
 

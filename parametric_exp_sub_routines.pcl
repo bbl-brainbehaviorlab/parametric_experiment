@@ -172,10 +172,51 @@ begin
 
 end;
 
+# a routine for setting the event code and port code of the stimulus event
+# event code is for logging to the log file
+# port code is for logging to the EEG port (value of port_code must be an integer between and including 0 and 2147483647)
+sub
+	setEventCode_PortCode(int counterbalance_id, int stim_id, double wav_duration, int deviant_cond, int regular_cond, int interval_cond, int is_deviant)
+begin
+	string my_event_code;
+	string my_port_code;
+
+	# change 1,2,4,16 interval_cond to 1,2,4,9
+	int interval_cond_one_digit = interval_cond; 
+	if interval_cond_one_digit == 16 then interval_cond_one_digit = 9; end;
+	# add a 0 for one-digit stim_id
+	string stim_id_str;
+	if stim_id < 10 then stim_id_str = "0" + string(stim_id); end;	
+	if stim_id >= 10 then stim_id_str = string(stim_id); end;
+
+	# port code
+	my_port_code = my_port_code + string(deviant_cond); # first digit is deviant cond
+	my_port_code = my_port_code + string(regular_cond); # second digit is regular cond
+	my_port_code = my_port_code + string(interval_cond_one_digit); #thrid digit is the interval condition
+	my_port_code = my_port_code + string(is_deviant); # forth digit is whether this is deviant (0 = no, 1 = yes)
+	my_port_code = my_port_code + stim_id_str; # last 2 digits are stim_id (01 = first stim, 16 = last stim) 
+
+	# event code
+	my_event_code =  my_event_code + string(counterbalance_id) + ";" ;
+	my_event_code = my_event_code + string(stim_id) + ";" ;
+	my_event_code = my_event_code + string(wav_duration) + ";" ;
+	my_event_code = my_event_code + "main" + ";" ;
+	my_event_code = my_event_code + string(deviant_cond) + ";" ;
+	my_event_code = my_event_code + string(regular_cond) + ";" ;
+	my_event_code = my_event_code + string(interval_cond) + ";" ;
+	my_event_code = my_event_code + string(is_deviant) + ";" ;
+	my_event_code = my_event_code + "blockIndex" + ";" ;
+	my_event_code = my_event_code + string(int(my_port_code)) + ";" ;
+
+	sound_event.set_event_code(my_event_code);
+	sound_event.set_port_code(int(my_port_code));
+
+end;
+
 
 # the routine to run the block given different conditions
 sub
-	runBlock(int deviant_cond, int regular_cond, int interval_cond)
+	runBlock(int deviant_cond, int regular_cond, int interval_cond, int counterbalance_id)
 begin
 
 	##### Things to set before the whole block starts #####
@@ -195,10 +236,11 @@ begin
 	# loop through trials
 	loop int i = 1 until i > this_block_stim_list.count() begin
 		double wav_file_duration = setSoundStim(deviant_cond, normal_sound, rotate_sound, this_block_stim_deviant[1][i], this_block_stim_deviant[2][i]);
-		sound_event.set_event_code("test;"+string(this_block_stim_deviant[1][i]) + ";" + string(wav_file_duration) +";main;" + string(deviant_cond) + ";" + string(regular_cond)+";"+string(interval_cond)+";"+string(this_block_stim_deviant[2][i]));
+		setEventCode_PortCode(counterbalance_id, this_block_stim_deviant[1][i], wav_file_duration, deviant_cond, regular_cond, interval_cond, this_block_stim_deviant[2][i]);
+		
 		sound_trial.present();
 		i = i + 1;
 	end; 
 	
-
 end;
+
