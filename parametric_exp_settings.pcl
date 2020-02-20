@@ -74,3 +74,18 @@ begin
 
     return(result);
 end;
+
+
+sub 
+    string getExperimentEndPage
+begin
+    string result;
+
+    if setting_language_version == 1 then
+        result = "This is the end of experiment. \n\n";
+        result = result + "Thank you for your participation. \n\n";
+        result = result + "Press the button to quit.";
+    end;
+
+    return(result);
+end;

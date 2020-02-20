@@ -334,5 +334,6 @@ begin
 		deviant_block_counter = deviant_block_counter+1;
 	end; # end of loop deviant block
 
+	presentGeneralInstruct(getExperimentEndPage());
 end;
 
