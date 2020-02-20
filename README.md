@@ -22,4 +22,11 @@ This is the script repository for the parametric experiment written for Presenta
     response_port_output = true;
     ```
 
-    
+
+
+## How to start an experiment?
+
+- Click `.exp` file to open the experiment in Presentation 
+- In `Main` tab, click `Run`
+- Enter the subject ID according to the counterbalance sheet (only integer from 1 to 32 is allowed), and then click `OK`
+- Click `Run Scenario`
