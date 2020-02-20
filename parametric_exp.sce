@@ -119,7 +119,9 @@ array {
 
 # Sound trial
 trial {
-	picture default;
+	stimulus_event {
+		picture default;
+	} picture_event;
    stimulus_event {
 		nothing {};
 	} sound_event;
