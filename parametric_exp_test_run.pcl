@@ -19,14 +19,4 @@
 # term.print_line(a);
 #runBlock(1,1,16,99);
 
-# just use the subject ID input in the prompt as counterbalancing ID
-int counterbalanceID = int(logfile.subject());
-if (logfile.subject()=="") then # if nothing in logfile.subject(), it means that this is a test from the editor. 
-	counterbalanceID = 5; # put whatever ID you like
-end;
 
-if (counterbalanceID > cbtable_deviant_order.count()) then
-	presentGeneralInstruct("The subject ID you input is not found. Press ESC to quit and restart.");
-end;
-
-runExperiment(counterbalanceID);
