@@ -186,7 +186,7 @@ end;
 # event code is for logging to the log file
 # port code is for logging to the EEG port (value of port_code must be an integer between and including 0 and 2147483647)
 sub
-	setEventCode_PortCode(int counterbalance_id, int stim_id, double wav_duration, int deviant_cond, int regular_cond, int interval_cond, int is_deviant)
+	setEventCode_PortCode(int counterbalance_id, int stim_id, double wav_duration, int deviant_cond, int regular_cond, int interval_cond, int is_deviant, int block_index)
 begin
 	string my_event_code;
 	string my_port_code;
@@ -206,16 +206,23 @@ begin
 	my_port_code = my_port_code + string(is_deviant); # forth digit is whether this is deviant (0 = no, 1 = yes)
 	my_port_code = my_port_code + stim_id_str; # last 2 digits are stim_id (01 = first stim, 16 = last stim) 
 
+	string practice_main;
+	if counterbalance_id == 88888 then
+		practice_main = "practice";
+		my_port_code = "777777"
+	else
+		practice_main = "main";
+	end;
 	# event code
 	my_event_code =  my_event_code + string(counterbalance_id) + ";" ;
 	my_event_code = my_event_code + string(stim_id) + ";" ;
 	my_event_code = my_event_code + string(wav_duration) + ";" ;
-	my_event_code = my_event_code + "main" + ";" ;
+	my_event_code = my_event_code + practice_main + ";" ;
 	my_event_code = my_event_code + string(deviant_cond) + ";" ;
 	my_event_code = my_event_code + string(regular_cond) + ";" ;
 	my_event_code = my_event_code + string(interval_cond) + ";" ;
 	my_event_code = my_event_code + string(is_deviant) + ";" ;
-	my_event_code = my_event_code + "blockIndex" + ";" ;
+	my_event_code = my_event_code + string(block_index) + ";" ;
 	my_event_code = my_event_code + string(int(my_port_code)) + ";" ;
 
 	sound_event.set_event_code(my_event_code);
@@ -226,12 +233,26 @@ end;
 
 # the routine to run the block given different conditions
 sub
-	runBlock(int deviant_cond, int regular_cond, int interval_cond, int counterbalance_id)
+	double runBlock(int deviant_cond, int regular_cond, int interval_cond, int counterbalance_id, int block_index)
 begin
 
 	##### Things to set before the whole block starts #####
 	array <int> this_block_stim_list[] = getBlockStimList(regular_cond, interval_cond);
 	array <int> this_block_stim_deviant[][] = assignDeviant(interval_cond, this_block_stim_list);
+	# if counterbalance id = 88888, it means this is the practice trial, shorten the stim_list
+	if counterbalance_id == 88888 then
+		this_block_stim_list.resize(setting_practice_trial_num);
+		this_block_stim_deviant[1].resize(setting_practice_trial_num);
+		this_block_stim_deviant[2].resize(setting_practice_trial_num);
+		this_block_stim_deviant[2].fill(1, this_block_stim_deviant[2].count(),0,0);
+		this_block_stim_deviant[2][5] = 1;
+		this_block_stim_deviant[2][13] = 1;
+		this_block_stim_deviant[2][18] = 1;
+		this_block_stim_deviant[2][22] = 1;
+		this_block_stim_deviant[2][29] = 1;
+	end;
+	double total_hit = 0;
+	double total_deviant = 0;
 
 	# Find the according sound files of this interval_cond
 	array <sound> normal_sound[0];
@@ -246,11 +267,19 @@ begin
 	# loop through trials
 	loop int i = 1 until i > this_block_stim_list.count() begin
 		double wav_file_duration = setSoundStim(deviant_cond, normal_sound, rotate_sound, this_block_stim_deviant[1][i], this_block_stim_deviant[2][i]);
-		setEventCode_PortCode(counterbalance_id, this_block_stim_deviant[1][i], wav_file_duration, deviant_cond, regular_cond, interval_cond, this_block_stim_deviant[2][i]);
+		setEventCode_PortCode(counterbalance_id, this_block_stim_deviant[1][i], wav_file_duration, deviant_cond, regular_cond, interval_cond, this_block_stim_deviant[2][i], block_index);
 		
 		sound_trial.present();
+
+		if this_block_stim_deviant[2][i]==1 then
+			total_deviant = total_deviant + 1;
+		end;
+		total_hit = total_hit+response_manager.hits();
+
 		i = i + 1;
 	end; 
+
+	return(total_hit/total_deviant)
 	
 end;
 
@@ -264,8 +293,22 @@ begin
 	array<int> user_regular_block_order_list[] = setting_regular_order[cbtable_regular_order[counterbalance_id]];
 	array<int> user_interval_block_order_list[] = setting_interval_order[cbtable_interval_order[counterbalance_id]];
 
+	# term.print_line(user_deviant_block_order_list);
+	# term.print_line(user_regular_block_order_list);
+	# term.print_line(user_interval_block_order_list);
+	int block_index = 0;
+
 	loop int deviant_block_counter = 1 until deviant_block_counter > user_deviant_block_order_list.count() begin
-	
+		
+		double hit_rate;
+		# Present the instruction & practice for each deviant block
+		loop until hit_rate >= setting_practice_min_hit_rate begin
+			presentGeneralInstruct(getTaskInstruction(user_deviant_block_order_list[deviant_block_counter]));
+			# Start the practice trial
+			hit_rate = runBlock(user_deviant_block_order_list[deviant_block_counter],1,1,88888);
+			presentGeneralInstruct(getPracticeEndPage(hit_rate));
+		end;
+
 		loop int regular_block_counter = 1 until regular_block_counter > user_regular_block_order_list.count() begin
 		
 			loop int interval_block_counter = 1 until interval_block_counter > user_interval_block_order_list.count() begin
@@ -273,10 +316,15 @@ begin
 				runBlock(user_deviant_block_order_list[deviant_block_counter],
 				user_regular_block_order_list[regular_block_counter],
 				user_interval_block_order_list[interval_block_counter],
-				counterbalance_id);
+				counterbalance_id, block_index);
 
+				# if this is the last block in the regular supra-block, do not need to present break
+				if regular_block_counter == 2 && interval_block_counter == 4 then
+				else
+					presentGeneralInstruct(getBreakInstruction());
+				end;
 
-
+				block_index = block_index + 1;
 				interval_block_counter = interval_block_counter + 1;
 			end; # end of loop interval block
 		
