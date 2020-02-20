@@ -172,6 +172,16 @@ begin
 
 end;
 
+# -- Present General Instruction --
+# A sub to present general insturction for whatever string
+sub
+	presentGeneralInstruct(string displayText)
+begin
+	instruct.set_caption(displayText);
+	instruct.redraw();
+	instruct_trial.present();
+end;
+
 # a routine for setting the event code and port code of the stimulus event
 # event code is for logging to the log file
 # port code is for logging to the EEG port (value of port_code must be an integer between and including 0 and 2147483647)
@@ -242,5 +252,39 @@ begin
 		i = i + 1;
 	end; 
 	
+end;
+
+
+# a routine to run experiment based on the input id
+sub
+	runExperiment(int counterbalance_id)
+begin
+	# get this participant order based on his id
+	array<int> user_deviant_block_order_list[] = setting_deviant_order[cbtable_deviant_order[counterbalance_id]];
+	array<int> user_regular_block_order_list[] = setting_regular_order[cbtable_regular_order[counterbalance_id]];
+	array<int> user_interval_block_order_list[] = setting_interval_order[cbtable_interval_order[counterbalance_id]];
+
+	loop int deviant_block_counter = 1 until deviant_block_counter > user_deviant_block_order_list.count() begin
+	
+		loop int regular_block_counter = 1 until regular_block_counter > user_regular_block_order_list.count() begin
+		
+			loop int interval_block_counter = 1 until interval_block_counter > user_interval_block_order_list.count() begin
+
+				runBlock(user_deviant_block_order_list[deviant_block_counter],
+				user_regular_block_order_list[regular_block_counter],
+				user_interval_block_order_list[interval_block_counter],
+				counterbalance_id);
+
+
+
+				interval_block_counter = interval_block_counter + 1;
+			end; # end of loop interval block
+		
+		regular_block_counter = regular_block_counter + 1;
+		end; # end of loop regular block
+
+		deviant_block_counter = deviant_block_counter+1;
+	end; # end of loop deviant block
+
 end;
 

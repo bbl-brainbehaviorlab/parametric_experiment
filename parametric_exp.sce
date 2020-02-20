@@ -117,12 +117,26 @@ array {
 
 
 
-
+# Sound trial
 trial {
    stimulus_event {
 		nothing {};
 	} sound_event;
 } sound_trial;
+
+# Instruction trial
+trial {
+   trial_type = first_response;
+   trial_duration = forever;
+   stimulus_event{
+		picture {
+			text { caption = " "; description = "Instruction"; } instruct;
+			x = 0; y = 0; 
+		};
+		code = "Instruction_Page";
+		port_code = 555555;
+	}instruct_event;
+} instruct_trial;
 	
 	
 #------------------------- PCL -------------------------------------
