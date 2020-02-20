@@ -305,7 +305,7 @@ begin
 		loop until hit_rate >= setting_practice_min_hit_rate begin
 			presentGeneralInstruct(getTaskInstruction(user_deviant_block_order_list[deviant_block_counter]));
 			# Start the practice trial
-			hit_rate = runBlock(user_deviant_block_order_list[deviant_block_counter],1,1,88888);
+			hit_rate = runBlock(user_deviant_block_order_list[deviant_block_counter],1,1,88888,0);
 			presentGeneralInstruct(getPracticeEndPage(hit_rate));
 		end;
 

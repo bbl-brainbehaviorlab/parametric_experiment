@@ -112,7 +112,7 @@
 <isb>10000</isb>
 <lfd>C:\Users\Heidi Chiu\Dropbox\Working\01_EntrainmentProject\0_ExperimentParametric\03_ExperimentCoding\parametric_experiment\log</lfd>
 <lnb>2</lnb>
-<lno>0</lno>
+<lno>3</lno>
 <log>
 <append_counter>0</append_counter>
 <delimiter>44</delimiter>
@@ -121,7 +121,7 @@
 <set_def_file></set_def_file>
 <stimulus_list>0</stimulus_list>
 <subject_id></subject_id>
-<subject_id_pol>0</subject_id_pol>
+<subject_id_pol>1</subject_id_pol>
 <video_list>0</video_list>
 <warnings>1</warnings>
 </log>
