@@ -127,6 +127,11 @@ trial {
 	} sound_event;
 } sound_trial;
 
+# Extra Silence trial
+trial {
+	picture default;
+} extra_silence;
+
 # Instruction trial
 trial {
    trial_type = first_response;

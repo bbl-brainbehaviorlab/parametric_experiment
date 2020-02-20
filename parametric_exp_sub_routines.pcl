@@ -286,9 +286,17 @@ begin
 		
 		sound_trial.present();
 
+		
+		# if this is the last trial, present an extra silence to wait for participant response
+		if i == this_block_stim_list.count() begin
+			extra_silence.set_duration(setting_response_window_end);
+			extra_silence.present();
+		end;
+		
 		if this_block_stim_deviant[2][i]==1 then
 			total_deviant = total_deviant + 1;
 		end;
+
 		total_hit = total_hit+response_manager.hits();
 
 		i = i + 1;
