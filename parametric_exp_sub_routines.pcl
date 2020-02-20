@@ -288,7 +288,7 @@ begin
 
 		
 		# if this is the last trial, present an extra silence to wait for participant response
-		if i == this_block_stim_list.count() begin
+		if i == this_block_stim_list.count() then
 			extra_silence.set_duration(setting_response_window_end);
 			extra_silence.present();
 		end;
