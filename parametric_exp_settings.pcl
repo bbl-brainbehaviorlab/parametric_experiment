@@ -15,51 +15,6 @@ int setting_maximum_same_pattern = 3; # the maximum allowed number of the same s
 int setting_response_window_start = 0;
 int setting_response_window_end = 1000;
 
-
-
-####################### DO NOT CHANGE BELOW ##########################
-
-############################################
-#       Counterbalancing                   #
-############################################
-
-
-# deviant cond (1: rotation as deviant, 2: rotation as standard)
-# regular cond (1: regular, 2: irregular)
-# interval cond (1, 2, 4, 16)
-
-##################################################
-# Order of deviant conditions
-# Order 1: rotation as deviant, rotation as standard
-# Order 2: rotation as standard, rotation as deviant
-array <int> setting_deviant_order[][] = {{1,2}, {2,1}};
-
-#################################################
-# Order of regularity conditions
-# Order 1: Regular, Irregular
-# Order 2: Irregular, Regular
-array <int> setting_regular_order[][] = {{1,2}, {2,1}};
-
-
-#################################################
-# Order of interval conditions within regular / irregular supra-block
-# Order 1: 1,2,16,4
-# Order 2: 2,4,1,16
-# Order 3: 4,16,2,1
-# Order 4: 16,1,4,2
-array <int> setting_interval_order[][] = {
-        {1,2,16,4},
-        {2,4,1,16},
-        {4,16,2,1},
-        {16,1,4,2}
-};
-
-
-#################################################
-# The array that stores the counterbalance table (written in ods file)
-array <string> cbtable_sex[] = {"F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","F","M","M","M","M","M","M","M","M","M","M","M","M","M","M","M","M"};
-array <int> cbtable_deviant_order[] = {1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2};
-array <int> cbtable_regular_order[] = {1,1,1,1,2,2,2,2,1,1,1,1,2,2,2,2,1,1,1,1,2,2,2,2,1,1,1,1,2,2,2,2};
-array <int> cbtable_interval_order[] = {1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
-
+# Switch between language version (1: English, 2: German)
+int setting_language_version = 1;
 

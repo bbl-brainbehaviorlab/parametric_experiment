@@ -42,6 +42,7 @@
 <filename>C:\Users\Heidi Chiu\Dropbox\Working\01_EntrainmentProject\0_ExperimentParametric\03_ExperimentCoding\parametric_experiment\parametric_exp_sub_routines.pcl</filename>
 <filename>C:\Users\Heidi Chiu\Dropbox\Working\01_EntrainmentProject\0_ExperimentParametric\03_ExperimentCoding\parametric_experiment\parametric_exp_test_run.pcl</filename>
 <filename>C:\Users\Heidi Chiu\Dropbox\Working\01_EntrainmentProject\0_ExperimentParametric\03_ExperimentCoding\parametric_experiment\parametric_exp.pcl</filename>
+<filename>C:\Users\Heidi Chiu\Dropbox\Working\01_EntrainmentProject\0_ExperimentParametric\03_ExperimentCoding\parametric_experiment\parametric_exp_counterbalancetable.pcl</filename>
 </efs>
 <exclusive_mouse>1</exclusive_mouse>
 <exp_version></exp_version>
@@ -143,10 +144,10 @@
 <dtr>disable</dtr>
 <rts>disable</rts>
 <set_fifo>1</set_fifo>
-<spd></spd>
-<spp></spp>
-<spr></spr>
-<sps></sps>
+<spd>6</spd>
+<spp>none</spp>
+<spr>2400</spr>
+<sps>1</sps>
 </parameters>
 <piai>COM6</piai>
 <pian>Serial Port</pian>
@@ -215,48 +216,6 @@
 <device_type>3</device_type>
 <dx_device_type>0</dx_device_type>
 <name>Standard PS/2 Keyboard</name>
-</device>
-<device>
-<abs_axis>
-<dead_zone>0</dead_zone>
-<max>1000</max>
-<min>-1000</min>
-<name>X-axis</name>
-<saturation>1</saturation>
-</abs_axis>
-<abs_axis>
-<dead_zone>0</dead_zone>
-<max>1000</max>
-<min>-1000</min>
-<name>Y-axis</name>
-<saturation>1</saturation>
-</abs_axis>
-<axis>
-<max>1000</max>
-<min>-1000</min>
-<name>X-axis</name>
-<restricted>1</restricted>
-<scale>1</scale>
-</axis>
-<axis>
-<max>1000</max>
-<min>-1000</min>
-<name>Y-axis</name>
-<restricted>1</restricted>
-<scale>1</scale>
-</axis>
-<axis>
-<max>1000</max>
-<min>-1000</min>
-<name>Wheel</name>
-<restricted>1</restricted>
-<scale>1</scale>
-</axis>
-<device_type>2</device_type>
-<dx_device_type>0</dx_device_type>
-<max_raw_pos>65535</max_raw_pos>
-<min_raw_pos>0</min_raw_pos>
-<name>HID-Compliant Mouse</name>
 </device>
 <device>
 <abs_axis>
@@ -385,6 +344,48 @@
 <name>HID-compliant mouse 1</name>
 </device>
 <device>
+<abs_axis>
+<dead_zone>0</dead_zone>
+<max>1000</max>
+<min>-1000</min>
+<name>X-axis</name>
+<saturation>1</saturation>
+</abs_axis>
+<abs_axis>
+<dead_zone>0</dead_zone>
+<max>1000</max>
+<min>-1000</min>
+<name>Y-axis</name>
+<saturation>1</saturation>
+</abs_axis>
+<axis>
+<max>1000</max>
+<min>-1000</min>
+<name>X-axis</name>
+<restricted>1</restricted>
+<scale>1</scale>
+</axis>
+<axis>
+<max>1000</max>
+<min>-1000</min>
+<name>Y-axis</name>
+<restricted>1</restricted>
+<scale>1</scale>
+</axis>
+<axis>
+<max>1000</max>
+<min>-1000</min>
+<name>Wheel</name>
+<restricted>1</restricted>
+<scale>1</scale>
+</axis>
+<device_type>2</device_type>
+<dx_device_type>0</dx_device_type>
+<max_raw_pos>65535</max_raw_pos>
+<min_raw_pos>0</min_raw_pos>
+<name>HID-Compliant Mouse</name>
+</device>
+<device>
 <device_type>4</device_type>
 <dx_device_type>17</dx_device_type>
 <name>Intel(R) HID Event Filter</name>
@@ -407,12 +408,12 @@
 <device>
 <device_type>4</device_type>
 <dx_device_type>17</dx_device_type>
-<name>USB GAMING MOUSE </name>
+<name>Wacom Tablet</name>
 </device>
 <device>
 <device_type>4</device_type>
 <dx_device_type>17</dx_device_type>
-<name>Wacom Tablet</name>
+<name>USB GAMING MOUSE </name>
 </device>
 <device>
 <device_type>9</device_type>
