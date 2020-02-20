@@ -32,13 +32,13 @@ int setting_response_window_end = 1000;
 # Order of deviant conditions
 # Order 1: rotation as deviant, rotation as standard
 # Order 2: rotation as standard, rotation as deviant
-array <int> setting_deviant_order[] = {{1,2}, {2,1}};
+array <int> setting_deviant_order[][] = {{1,2}, {2,1}};
 
 #################################################
 # Order of regularity conditions
 # Order 1: Regular, Irregular
 # Order 2: Irregular, Regular
-array <int> setting_regular_order[] = {{1,2}, {2,1}};
+array <int> setting_regular_order[][] = {{1,2}, {2,1}};
 
 
 #################################################
@@ -47,7 +47,7 @@ array <int> setting_regular_order[] = {{1,2}, {2,1}};
 # Order 2: 2,4,1,16
 # Order 3: 4,16,2,1
 # Order 4: 16,1,4,2
-array <int> setting_interval_order[] = {
+array <int> setting_interval_order[][] = {
         {1,2,16,4},
         {2,4,1,16},
         {4,16,2,1},
