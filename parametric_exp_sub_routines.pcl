@@ -29,7 +29,7 @@ begin
 			# get a random index for inserting the deviant
 			int insert_position = random(1, setting_interval_in_block); 
 			# if the insert_position is in the first n-th trial, do not insert. The deviant has to be preceeded by at least n-th standards.
-			if insert_position <= num_backward_forward then
+			if insert_position <= setting_deviant_min_trial_apart then
 				insert_successful = false;
 				continue; # go to next loop
 			end;
