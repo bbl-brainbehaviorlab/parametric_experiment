@@ -19,7 +19,7 @@ int setting_response_window_start = 0;
 int setting_response_window_end = 1200;
 
 # Switch between language version (1: English, 2: German)
-int setting_language_version = 1;
+int setting_language_version = 2;
 
 
 ############################################################
@@ -36,6 +36,14 @@ begin
         result = result + "Please press the button when you hear a " + sound_text[deviant_cond] + ".\n";
         result = result + "You should respond as quick and accurate as possible.\n\n";
         result = result + "Press the button to start the practice.\n";
+    end;
+
+    if setting_language_version == 2 then
+        array<string> sound_text[] = {"nicht-stimmlich", "stimmlich"};
+        result = "In diesem Experiment hörst Du eine gesprochene Silbe in Wiederholung.\n Ab und zu wird die Silbensequenz von einem nicht-stimmlichen Reiz unterbrochen.\n" ;
+        result = result + "Bitte drücke die Taste wenn ein Klang " + sound_text[deviant_cond] + " ist.\n";
+        result = result + "Bitte antworte so korrekt und schnell wie möglich.\n\n";
+        result = result + "Bitte drücke die Taste um mit einer Übung zu beginnen.\n";
     end;
 
     return(result);
@@ -58,6 +66,18 @@ begin
         end;
     end;
 
+    if setting_language_version == 2 then
+        result = "Die Übung ist beendet. \n";
+        result = "Deine Treffer-rate ist: " + string(int(hit_rate*100)) +"%.\n\n";
+ 
+         if hit_rate >= setting_practice_min_hit_rate then
+            result = result + "Drücke die Taste um das Experiment zu starten.\n";
+         else
+            result = result + "Deine Treffer-rate ist zu niedrig. \n";
+            result = result + "Bitte drücke die Taste um die Instruktionen erneut zu lesen.";
+         end;
+     end;
+
     return(result);
 end;
 
@@ -72,6 +92,12 @@ begin
        result = result + "when you are ready to start the next block.";
     end;
 
+    if setting_language_version == 2 then
+        result = "Das ist eine Pause. \n\n";
+        result = result + "Bitte drücke die Taste\n";
+        result = result + "wenn Du mit dem nächsten Block beginnen möchtest.";
+     end;
+
     return(result);
 end;
 
@@ -85,6 +111,12 @@ begin
         result = "This is the end of experiment. \n\n";
         result = result + "Thank you for your participation. \n\n";
         result = result + "Press the button to quit.";
+    end;
+
+    if setting_language_version == 2 then
+        result = "Das ist das Ende von unserem Experiment. \n\n";
+        result = result + "Vielen Dank für Deine Teilnahme. \n\n";
+        result = result + "Drücke die Taste um das Experiment zu verlassen.";
     end;
 
     return(result);
