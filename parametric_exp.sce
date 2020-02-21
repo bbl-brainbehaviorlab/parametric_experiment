@@ -119,6 +119,7 @@ array {
 
 # Sound trial
 trial {
+	trial_duration = stimuli_length;
 	stimulus_event {
 		picture default;
 	} picture_event;

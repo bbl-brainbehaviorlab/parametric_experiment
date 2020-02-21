@@ -176,6 +176,7 @@ begin
 	end;
 
 	sound_event.set_stimulus(the_stim);
+	sound_event.set_time(0);
 	sound_event.set_target_button(is_deviant); # when it is not deviant, the target button should set to 0; when it is deviant, target button set to 1;
 	if is_deviant == 1 then
 		sound_event.set_stimulus_time_in(setting_response_window_start);
@@ -268,6 +269,9 @@ begin
 	end;
 	double total_hit = 0;
 	double total_deviant = 0;
+
+	# term.print_line(this_block_stim_deviant[1]);
+	# term.print_line(this_block_stim_deviant[1]);
 
 	# Find the according sound files of this interval_cond
 	array <sound> normal_sound[0];

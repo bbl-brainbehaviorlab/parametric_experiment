@@ -1,7 +1,7 @@
 # just use the subject ID input in the prompt as counterbalancing ID
 int counterbalanceID = int(logfile.subject());
 if (logfile.subject()=="") then # if nothing in logfile.subject(), it means that this is a test from the editor. 
-	counterbalanceID = 5; # put whatever ID you like
+	counterbalanceID = 8; # put whatever ID you like
 end;
 
 if (counterbalanceID > cbtable_deviant_order.count()) then
