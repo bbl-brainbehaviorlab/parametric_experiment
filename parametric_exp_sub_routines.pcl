@@ -28,6 +28,11 @@ begin
 		loop bool insert_successful = false until insert_successful == true begin
 			# get a random index for inserting the deviant
 			int insert_position = random(1, setting_interval_in_block); 
+			# if the insert_position is in the first n-th trial, do not insert. The deviant has to be preceeded by at least n-th standards.
+			if insert_position <= num_backward_forward then
+				insert_successful = false;
+				continue; # go to next loop
+			end;
 			
 			#only turn it to deviant when it is not one yet. The backward and forward 3 trials should not be deivant
 			bool have_deviant_forward_backward = false;
