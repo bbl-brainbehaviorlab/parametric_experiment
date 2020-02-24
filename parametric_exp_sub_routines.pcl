@@ -211,25 +211,45 @@ begin
 	string my_event_code;
 	string my_port_code;
 
-	# change 1,2,4,16 interval_cond to 1,2,4,9
-	int interval_cond_one_digit = interval_cond; 
-	if interval_cond_one_digit == 16 then interval_cond_one_digit = 9; end;
-	# add a 0 for one-digit stim_id
-	string stim_id_str;
-	if stim_id < 10 then stim_id_str = "0" + string(stim_id); end;	
-	if stim_id >= 10 then stim_id_str = string(stim_id); end;
+	# define first 2 digits of the port code
+	int first_two;
+	if interval_cond == 1 then
+		first_two = 1;
+	elseif interval_cond == 2 then
+		first_two = 1+stim_id;
+	elseif interval_cond == 3 then
+		first_two = 3+stim_id;
+	elseif interval_cond == 16 then
+		first_two = 7+stim_id;
+	end;
+	#define last digit of the port code
+	int last_digit;
+	if regular_cond == 1 then
+		if deviant_cond == 1 then
+			last_digit = 1;
+		else
+			last_digit = 3;
+		end;
+	else
+		if deviant_cond == 1 then
+			last_digit = 5;
+		else
+			last_digit = 7;
+		end;
+	end;
+	
+	if is_deviant == 1 then
+		last_digit = last_digit + 1;
+	end;
+	
+	# combine first two with last to get the port code
+	my_port_code = string(first_two) + string(last_digit);
 
-	# port code
-	my_port_code = my_port_code + string(deviant_cond); # first digit is deviant cond
-	my_port_code = my_port_code + string(regular_cond); # second digit is regular cond
-	my_port_code = my_port_code + string(interval_cond_one_digit); #thrid digit is the interval condition
-	my_port_code = my_port_code + string(is_deviant); # forth digit is whether this is deviant (0 = no, 1 = yes)
-	my_port_code = my_port_code + stim_id_str; # last 2 digits are stim_id (01 = first stim, 16 = last stim) 
 
 	string practice_main;
 	if counterbalance_id == 88888 then
 		practice_main = "practice";
-		my_port_code = "777777";
+		my_port_code = "249";
 	else
 		practice_main = "main";
 	end;

@@ -12,7 +12,7 @@ response_logging = log_all;
 
 active_buttons = 1; # only one button (e.g. spacebar) is needed
 button_codes = 1;
-target_button_codes = 11;
+target_button_codes = 2; # the code of a hit
 
 default_text_color = 0, 0, 0;    # use black as default
 default_font_size = 30;
