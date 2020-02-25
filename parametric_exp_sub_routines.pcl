@@ -217,7 +217,7 @@ begin
 		first_two = 1;
 	elseif interval_cond == 2 then
 		first_two = 1+stim_id;
-	elseif interval_cond == 3 then
+	elseif interval_cond == 4 then
 		first_two = 3+stim_id;
 	elseif interval_cond == 16 then
 		first_two = 7+stim_id;
