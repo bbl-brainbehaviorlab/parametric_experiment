@@ -143,7 +143,7 @@ trial {
 			x = 0; y = 0; 
 		};
 		code = "Instruction_Page";
-		port_code = 555555;
+		port_code = 250;
 	}instruct_event;
 } instruct_trial;
 	

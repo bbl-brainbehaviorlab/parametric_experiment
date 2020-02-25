@@ -82,6 +82,10 @@ Since we are using LPT port, we can only port a code in the range of 0 to 255.
 
 ### Practice Trial Code: 249
 
+### Instruction Page Code: 250
+
 ### Button Response Code: 1
 
 ### Button Hit Code: 2 (Hit within the response window)
+
+### 
