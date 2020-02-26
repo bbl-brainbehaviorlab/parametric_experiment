@@ -92,11 +92,6 @@ array {
 	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_16.wav'; }; };
 } soundfiles_16intervals_rotated;
 
-array { 
-} soundfiles_1intervals;
-
-array { 
-} soundfiles_1intervals_rotated;
 
 
 
