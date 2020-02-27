@@ -320,13 +320,13 @@ begin
 	
 	# for 2 interval and 4 interval, the soundfiles have to be based on the counterbalancing
 	# and the files are a subset of 16-interval soundfiles
-
 	if interval_cond == 2 then
 		# find the variation this participant has based on cb id
 		array <int> soundfiles_int2[] = setting_int2_variation[cbtable_int2_variation[counterbalance_id]];
 		loop int ii = 1 until ii > soundfiles_int2.count() begin
 			normal_sound.add(soundfiles_16intervals[soundfiles_int2[ii]]);
 			rotate_sound.add(soundfiles_16intervals_rotated[soundfiles_int2[ii]]);
+			ii = ii + 1;
 		end;
 	end;
 
@@ -336,6 +336,7 @@ begin
 		loop int ii = 1 until ii > soundfiles_int4.count() begin
 			normal_sound.add(soundfiles_16intervals[soundfiles_int4[ii]]);
 			rotate_sound.add(soundfiles_16intervals_rotated[soundfiles_int4[ii]]);
+			ii = ii + 1;
 		end;
 	
 	end;
