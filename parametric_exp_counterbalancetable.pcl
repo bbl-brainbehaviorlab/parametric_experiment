@@ -35,6 +35,41 @@ array <int> setting_interval_order[][] = {
         {16,1,4,2}
 };
 
+#################################################
+# Sound files used in each 2-interval variation
+# v1 (1,16)
+# v2 (2,15)
+# v3 (3,14)
+# v4 (4,13)
+# v5 (5,12)
+# v6 (6,11
+# v7 (7,10
+# v8 (8,9)
+array <int> setting_int2_variation[] = {
+        {1,16},
+        {2,15},
+        {3,14},
+        {4,13},
+        {5,12},
+        {6,11},
+        {7,10},
+        {8,9}
+};
+
+
+#################################################
+# Sound files used in each 4-interval variation
+# v1 (1,6,11,16)
+# v2 (4,7,10,13)
+# v3 (7,8,9,10)
+array <int> setting_int4_variation[] = {
+        {1,6,11,16},
+        {4,7,10,13},
+        {7,8,9,10}
+}
+
+
+
 
 #################################################
 # The array that stores the counterbalance table (written in ods file)
