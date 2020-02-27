@@ -155,9 +155,9 @@ end;
 
 
 # a routine to set the sound stimulus in each trial
-# it will also return the wav file duration
+# it will also return the wav file duration and file name
 sub 
-	double setSoundStim(int deviant_cond, array<sound,1> normal_sound, array<sound,1> rotate_sound, int stim_id, int is_deviant) 
+	array<string,1> setSoundStim(int deviant_cond, array<sound,1> normal_sound, array<sound,1> rotate_sound, int stim_id, int is_deviant) 
 begin
 	
 	# should always be active so that false alarm / hit can be recorded
@@ -187,8 +187,14 @@ begin
 		sound_event.set_stimulus_time_in(setting_response_window_start);
 		sound_event.set_stimulus_time_out(setting_response_window_end);
 	end;
-	#sound_trial.set_duration(the_stim.get_wavefile().duration());
-	return(the_stim.get_wavefile().duration());
+	
+	array <string> return_string[0];
+	return_string.add(string(the_stim.get_wavefile().duration()));
+
+	array <string> parts[0];
+	the_stim.get_wavefile().filename().split("\\", parts);
+	return_string.add(parts[parts.count()]);
+	return(return_string);
 
 end;
 
@@ -206,7 +212,7 @@ end;
 # event code is for logging to the log file
 # port code is for logging to the EEG port (value of port_code must be an integer between and including 0 and 2147483647)
 sub
-	setEventCode_PortCode(int counterbalance_id, int stim_id, double wav_duration, int deviant_cond, int regular_cond, int interval_cond, int is_deviant)
+	setEventCode_PortCode(int counterbalance_id, int stim_id, string wav_duration, string wav_filename, int deviant_cond, int regular_cond, int interval_cond, int is_deviant)
 begin
 	string my_event_code;
 	string my_port_code;
@@ -256,7 +262,8 @@ begin
 	# event code
 	my_event_code =  my_event_code + string(counterbalance_id) + ";" ;
 	my_event_code = my_event_code + string(stim_id) + ";" ;
-	my_event_code = my_event_code + string(wav_duration) + ";" ;
+	my_event_code = my_event_code + wav_duration + ";" ;
+	my_event_code = my_event_code + wav_filename + ";" ;
 	my_event_code = my_event_code + practice_main + ";" ;
 	my_event_code = my_event_code + string(deviant_cond) + ";" ;
 	my_event_code = my_event_code + string(regular_cond) + ";" ;
@@ -264,6 +271,13 @@ begin
 	my_event_code = my_event_code + string(is_deviant) + ";" ;
 	my_event_code = my_event_code + string(block_index) + ";" ;
 	my_event_code = my_event_code + string(int(my_port_code)) + ";" ;
+	if counterbalance_id == 88888 then
+		my_event_code = my_event_code + "" + ";" ;
+		my_event_code = my_event_code + "" + ";" ;
+	else
+		my_event_code = my_event_code + string(cbtable_int2_variation[counterbalance_id]) + ";" ;
+		my_event_code = my_event_code + string(cbtable_int4_variation[counterbalance_id]) + ";" ;
+	end;
 
 	picture_event.set_event_code(my_event_code);
 	sound_event.set_event_code(my_event_code);
@@ -302,16 +316,37 @@ begin
 	array <sound> normal_sound[0];
 	array <sound> rotate_sound[0];
 	if interval_cond == 1 then normal_sound.assign(soundfiles_1intervals); rotate_sound.assign(soundfiles_1intervals_rotated); end;
-	if interval_cond == 2 then normal_sound.assign(soundfiles_2intervals); rotate_sound.assign(soundfiles_2intervals_rotated); end;
-	if interval_cond == 4 then normal_sound.assign(soundfiles_4intervals); rotate_sound.assign(soundfiles_4intervals_rotated); end;
 	if interval_cond == 16 then normal_sound.assign(soundfiles_16intervals); rotate_sound.assign(soundfiles_16intervals_rotated); end;
+	
+	# for 2 interval and 4 interval, the soundfiles have to be based on the counterbalancing
+	# and the files are a subset of 16-interval soundfiles
+
+	if interval_cond == 2 then
+		# find the variation this participant has based on cb id
+		array <int> soundfiles_int2[] = setting_int2_variation[cbtable_int2_variation[counterbalance_id]];
+		loop int ii = 1 until ii > soundfiles_int2.count() begin
+			normal_sound.add(soundfiles_16intervals[soundfiles_int2[ii]]);
+			rotate_sound.add(soundfiles_16intervals_rotated[soundfiles_int2[ii]]);
+		end;
+	end;
+
+	if interval_cond == 4 then 
+		# find the variation this participant has based on cb id
+		array <int> soundfiles_int4[] = setting_int4_variation[cbtable_int4_variation[counterbalance_id]];
+		loop int ii = 1 until ii > soundfiles_int4.count() begin
+			normal_sound.add(soundfiles_16intervals[soundfiles_int4[ii]]);
+			rotate_sound.add(soundfiles_16intervals_rotated[soundfiles_int4[ii]]);
+		end;
+	
+	end;
+	
 
 	##### END OF Things to set before the whole block starts #####
 
 	# loop through trials
 	loop int i = 1 until i > this_block_stim_list.count() begin
-		double wav_file_duration = setSoundStim(deviant_cond, normal_sound, rotate_sound, this_block_stim_deviant[1][i], this_block_stim_deviant[2][i]);
-		setEventCode_PortCode(counterbalance_id, this_block_stim_deviant[1][i], wav_file_duration, deviant_cond, regular_cond, interval_cond, this_block_stim_deviant[2][i]);
+		array <string> wav_file_duration_filename[] = setSoundStim(deviant_cond, normal_sound, rotate_sound, this_block_stim_deviant[1][i], this_block_stim_deviant[2][i]);
+		setEventCode_PortCode(counterbalance_id, this_block_stim_deviant[1][i], wav_file_duration_filename[1], wav_file_duration_filename[2], deviant_cond, regular_cond, interval_cond, this_block_stim_deviant[2][i]);
 		
 		sound_trial.present();
 

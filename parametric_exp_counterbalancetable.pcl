@@ -45,7 +45,7 @@ array <int> setting_interval_order[][] = {
 # v6 (6,11
 # v7 (7,10
 # v8 (8,9)
-array <int> setting_int2_variation[] = {
+array <int> setting_int2_variation[][] = {
         {1,16},
         {2,15},
         {3,14},
@@ -62,11 +62,11 @@ array <int> setting_int2_variation[] = {
 # v1 (1,6,11,16)
 # v2 (4,7,10,13)
 # v3 (7,8,9,10)
-array <int> setting_int4_variation[] = {
+array <int> setting_int4_variation[][] = {
         {1,6,11,16},
         {4,7,10,13},
         {7,8,9,10}
-}
+};
 
 
 

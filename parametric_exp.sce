@@ -21,13 +21,16 @@ default_background_color = 211, 211, 211;
 stimulus_properties = counter_balance_id, string, 
 							stimuli_file, string, 
 							wav_file_duration, string,
+							wav_file_name, string,
 							practice_main, string,
 							deviant_condition, string, 
 							regularity_condition, string,
 							interval_condition, string,
 							is_deviant, string,
 							blockIndex, string,
-							my_port_code, number;
+							my_port_code, number,
+							int2_variation, string,
+							int4_variation, string;
 event_code_delimiter = ";";
 
 
@@ -51,45 +54,45 @@ array {
 
 array { 
 	sound { wavefile { filename = "/stimuli/1intervals/rotated_2000x_neutral2_first_da_orginal_changeduration_Stretch_0.516.wav"; }; };
-} soundfiles_1intervals_rotated;
+} soundfiles_1intervals_rotated;	
 
 
 array { 
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_1.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_2.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_3.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_4.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_5.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_6.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_7.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_8.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_9.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_10.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_11.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_12.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_13.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_14.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_15.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/normal_duration_16.wav'; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_1.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_2.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_3.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_4.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_5.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_6.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_7.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_8.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_9.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_10.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_11.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_12.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_13.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_14.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_15.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/normal_duration_16.wav"; }; };
 } soundfiles_16intervals;
 
 array { 
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_1.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_2.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_3.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_4.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_5.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_6.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_7.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_8.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_9.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_10.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_11.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_12.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_13.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_14.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_15.wav'; }; };
-	sound { wavefile { filename = '/stimuli/16intervals/rotated_2000x_normal_duration_16.wav'; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_1.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_2.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_3.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_4.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_5.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_6.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_7.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_8.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_9.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_10.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_11.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_12.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_13.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_14.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_15.wav"; }; };
+	sound { wavefile { filename = "/stimuli/16intervals/rotated_2000x_normal_duration_16.wav"; }; };
 } soundfiles_16intervals_rotated;
 
 
