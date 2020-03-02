@@ -35,7 +35,8 @@ This is the script repository for the parametric experiment written for Presenta
 
 ## Port Code - Coding Scheme
 
-Since we are using LPT port, we can only port a code in the range of 0 to 255.
+- Since we are using LPT port, we can only port a code in the range of 0 to 255.
+- Since for this experiment, there are very frequent stimulus onsets and are easy to be in conflict with a response porting. Thus, the response porting is disable and the response should be matched to the EEG data through the log file.
 
 ### First 2 Digits:
 
