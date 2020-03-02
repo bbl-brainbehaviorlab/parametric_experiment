@@ -82,10 +82,16 @@ end; # END OF assignDeviant
 # regular_cond (1: regular, 2: irregular)
 # interval_cond (1, 2, 4, 16)
 sub
-	array<int,1> getBlockStimList(int regular_cond, int interval_cond)
+	array<int,1> getBlockStimList(int regular_cond, int interval_cond, int counterbalance_id)
 begin
 	# initialize a result variable
 	array <int> stim_index_of_whole_block[0];
+
+	#Pre-defined interval sequence order of the regular block 
+	array <int> order_1intervals[] = {1};
+	array <int> order_2intervals[] = {1,2};
+	array <int> order_4intervals[] =  setting_int4_regular_order[cbtable_int4_regular_order[counterbalance_id]]; #based on cbtable
+	array <int> order_16intervals[] = setting_int16_regular_order[cbtable_int16_regular_order[counterbalance_id]]; #based on cbtable
 
 	# get the according regular order list based on the condition
 	array <int> regular_order_list[0];
@@ -292,7 +298,7 @@ sub
 begin
 
 	##### Things to set before the whole block starts #####
-	array <int> this_block_stim_list[] = getBlockStimList(regular_cond, interval_cond);
+	array <int> this_block_stim_list[] = getBlockStimList(regular_cond, interval_cond, counterbalance_id);
 	array <int> this_block_stim_deviant[][] = assignDeviant(interval_cond, this_block_stim_list);
 	# if counterbalance id = 88888, it means this is the practice trial, shorten the stim_list
 	if counterbalance_id == 88888 then
