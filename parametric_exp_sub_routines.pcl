@@ -20,6 +20,8 @@ begin
 	# assign 96 deviant to it
 	# initialize a counter of an interval being deviant
 	array <int> counter_deviant[interval_cond]; # [1] will store the number of time of the 1st interval, [2] stores 2nd interval...
+	# initialize a counter of an interval being the immediate standard preceding a deviant
+	array <int> counter_immediate[interval_cond];
 	int max_time_being_deviant = setting_deviant_in_block/interval_cond; # the maximum number of time of each interval being a deviant
 
 	loop int i = 1 until i > setting_deviant_in_block begin # for each deviant
@@ -57,10 +59,12 @@ begin
 			
 			if whether_deviant[insert_position] == 0 && have_deviant_forward_backward == false then 
 				int insert_target_stim_index = index_of_whole_block[insert_position]; # get which stimulus this trial is
+				int immediate_preceding_stim_index = index_of_whole_block[insert_position-1]; # get which the immediate previous stimulus is
 				# check the counter array to see whether this stim not yet exceed maximum deviant num
-				if counter_deviant[insert_target_stim_index] < max_time_being_deviant then
+				if counter_deviant[insert_target_stim_index] < max_time_being_deviant && counter_immediate[immediate_preceding_stim_index]< max_time_being_deviant then  # both of the counter should not exceed the maximum time of being a deviant
 					whether_deviant[insert_position] = 1;
 					counter_deviant[insert_target_stim_index] = counter_deviant[insert_target_stim_index] +1;
+					counter_immediate[immediate_preceding_stim_index] = counter_immediate[immediate_preceding_stim_index] +1;
 					insert_successful = true;
 				end; # end of if the stim not yet exceed max time
 			end; # end of if position is 0

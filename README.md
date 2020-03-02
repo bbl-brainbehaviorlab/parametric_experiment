@@ -74,12 +74,12 @@ This is the script repository for the parametric experiment written for Presenta
 | 1           | 1           | 1         | 2                |
 | 1           | 2           | 0         | 3                |
 | 1           | 2           | 1         | 4                |
-| 2           | 1           | 0         | 5                |
+| 2*           | 1           | 0         | 5                |
 | 2           | 1           | 1         | 6                |
 | 2           | 2           | 0         | 7                |
 | 2           | 2           | 1         | 8                |
 
-
+*For 1-interval condition, the 1 or 2 in RegularCond does not refer to the regularity of the blocks because it is always regular. It only refers to whether the 1-interval sub-block is belong to the regular or irregular supra-block.
 
 ### Practice Trial Code: 249
 
