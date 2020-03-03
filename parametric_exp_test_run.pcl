@@ -19,4 +19,4 @@
 # term.print_line(a);
 #runBlock(1,1,16,99);
 
-runBlock(1,1,16,8)
+runBlock(1,2,16,8)
