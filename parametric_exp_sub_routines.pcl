@@ -389,6 +389,11 @@ begin
 
 	# loop through trials
 	loop int i = 1 until i > this_block_stim_list.count() begin
+		# if this is the first trial, present an extra silence as "start_block"
+		if i == 1 then
+			start_block.present();
+		end;
+
 		array <string> wav_file_duration_filename[] = setSoundStim(deviant_cond, normal_sound, rotate_sound, this_block_stim_deviant[1][i], this_block_stim_deviant[2][i]);
 		setEventCode_PortCode(counterbalance_id, this_block_stim_deviant[1][i], wav_file_duration_filename[1], wav_file_duration_filename[2], deviant_cond, regular_cond, interval_cond, this_block_stim_deviant[2][i]);
 		
@@ -399,6 +404,8 @@ begin
 		if i == this_block_stim_list.count() then
 			extra_silence.set_duration(setting_response_window_end);
 			extra_silence.present();
+			# also present the end of block
+			end_block.present();
 		end;
 		
 		if this_block_stim_deviant[2][i]==1 then

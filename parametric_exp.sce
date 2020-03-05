@@ -115,6 +115,26 @@ trial {
 	picture default;
 } extra_silence;
 
+trial {
+	trial_duration = 100;
+	stimulus_event{
+		picture default;
+		duration = 100;
+		port_code = 241;
+		code = "startblock;;;;;;;;;;241;;";
+	};
+} start_block;
+
+trial {
+	trial_duration = 100;
+	stimulus_event{
+		picture default;
+		duration = 100;
+		port_code = 245;
+		code = "endblock;;;;;;;;;;245;;";
+	};
+} end_block;
+
 # Instruction trial
 trial {
    trial_type = first_response;
