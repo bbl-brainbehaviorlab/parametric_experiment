@@ -246,6 +246,8 @@ end;
 sub
 	presentGeneralInstruct(string displayText)
 begin
+	response_manager.set_button_active(2,true);
+	response_manager.set_button_active(1,false);
 	instruct.set_caption(displayText);
 	instruct.redraw();
 	instruct_trial.present();
@@ -312,7 +314,11 @@ begin
 	my_event_code = my_event_code + string(regular_cond) + ";" ;
 	my_event_code = my_event_code + string(interval_cond) + ";" ;
 	my_event_code = my_event_code + string(is_deviant) + ";" ;
-	my_event_code = my_event_code + string(block_index) + ";" ;
+	if counterbalance_id == 88888 then
+		my_event_code = my_event_code + "249" + ";" ;
+	else
+		my_event_code = my_event_code + string(block_index) + ";" ;
+	end;
 	my_event_code = my_event_code + string(int(my_port_code)) + ";" ;
 	if counterbalance_id == 88888 then
 		my_event_code = my_event_code + "" + ";" ;
@@ -333,7 +339,9 @@ end;
 sub
 	double runBlock(int deviant_cond, int regular_cond, int interval_cond, int counterbalance_id)
 begin
-
+	response_manager.set_button_active(1,true);
+	response_manager.set_button_active(2,false);
+	
 	##### Things to set before the whole block starts #####
 	array <int> this_block_stim_list[] = getBlockStimList(regular_cond, interval_cond, counterbalance_id);
 	array <int> this_block_stim_deviant[][] = assignDeviant(interval_cond, this_block_stim_list);
@@ -390,7 +398,7 @@ begin
 	# loop through trials
 	loop int i = 1 until i > this_block_stim_list.count() begin
 		# if this is the first trial, present an extra silence as "start_block"
-		if i == 1 then
+		if i == 1 && counterbalance_id != 88888 then
 			start_block.present();
 		end;
 
@@ -404,7 +412,8 @@ begin
 		if i == this_block_stim_list.count() then
 			extra_silence.set_duration(setting_response_window_end);
 			extra_silence.present();
-			# also present the end of block
+		end;
+		if i == this_block_stim_list.count() && counterbalance_id != 88888 then
 			end_block.present();
 		end;
 		

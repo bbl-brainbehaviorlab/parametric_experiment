@@ -90,6 +90,3 @@ This is the script repository for the parametric experiment written for Presenta
 
 ### Button Response Code: 1
 
-### Button Hit Code: 2 (Hit within the response window)
-
-### 

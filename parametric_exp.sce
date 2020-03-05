@@ -10,9 +10,10 @@ response_logging = log_all;
 #pulse_width = 6; #length of EEG trigger in miliseconds, may need to adjust depending on EEG sampling rate
 #response_port_output = true; # this allow porting the subject response
 
-active_buttons = 1; # only one button (e.g. spacebar) is needed
-button_codes = 1;
-target_button_codes = 2; # the code of a hit
+active_buttons = 2; # 2 buttons are needed
+# 1 is the button for giving response to experiment , 2 is the button for experimenter to press for all instruction page
+button_codes = 1,2; 
+target_button_codes = 1,2; 
 
 default_text_color = 0, 0, 0;    # use black as default
 default_font_size = 30;

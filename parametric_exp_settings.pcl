@@ -37,7 +37,7 @@ begin
         result = "In diesem Experiment hörst Du eine gesprochene Silbe in Wiederholung.\n Ab und zu wird die Silbensequenz von einem nicht-stimmlichen Reiz unterbrochen.\n" ;
         result = result + "Bitte drücke die Taste wenn ein Klang " + sound_text[deviant_cond] + " ist.\n";
         result = result + "Bitte antworte so korrekt und schnell wie möglich.\n\n";
-        result = result + "Bitte drücke die Taste um mit einer Übung zu beginnen.\n";
+        result = result + "Bitte warten Sie darauf das die \nVersuchsleiterin die Uebung startet.\n"; #"Please wait for the experimenter to start the practice."
     end;
 
     return(result);
@@ -65,10 +65,12 @@ begin
         result = "Deine Treffer-rate ist: " + string(int(hit_rate*100)) +"%.\n\n";
  
          if hit_rate >= setting_practice_min_hit_rate then
-            result = result + "Drücke die Taste um das Experiment zu starten.\n";
+            result = result + "Bitte warten Sie darauf das die \nVersuchsleiterin das Experiment startet.\n";
+				 # "Please wait for the experimenter to start the experiment."
          else
-            result = result + "Deine Treffer-rate ist zu niedrig. \n";
-            result = result + "Bitte drücke die Taste um die Instruktionen erneut zu lesen.";
+            #result = result + "Deine Treffer-rate ist zu niedrig. \n";
+            #result = result + "Bitte drücke die Taste um die Instruktionen erneut zu lesen.";
+				result = result + "Bitte warten Sie auf die \nAnleitungen der Versuchsleiterin.";  # "Please wait for the experimenter's instruction." (when practice hit rate is too low)
          end;
      end;
 
@@ -88,8 +90,9 @@ begin
 
     if setting_language_version == 2 then
         result = "Das ist eine Pause. \n\n";
-        result = result + "Bitte drücke die Taste\n";
-        result = result + "wenn Du mit dem nächsten Block beginnen möchtest.";
+        #result = result + "Bitte drücke die Taste\n";
+        #result = result + "wenn Du mit dem nächsten Block beginnen möchtest.";
+		result = result + "Bitte warten Sie darauf das die \nVersuchsleiterin den naechsten Block startet."; #"Please wait for the experimenter to start the next block."
      end;
 
     return(result);
@@ -109,8 +112,8 @@ begin
 
     if setting_language_version == 2 then
         result = "Das ist das Ende von unserem Experiment. \n\n";
-        result = result + "Vielen Dank für Deine Teilnahme. \n\n";
-        result = result + "Drücke die Taste um das Experiment zu verlassen.";
+        #result = result + "Vielen Dank für Deine Teilnahme. \n\n";
+        #result = result + "Drücke die Taste um das Experiment zu verlassen.";
     end;
 
     return(result);
