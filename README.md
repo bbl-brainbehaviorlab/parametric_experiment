@@ -81,6 +81,9 @@ This is the script repository for the parametric experiment written for Presenta
 
 *For 1-interval condition, the 1 or 2 in RegularCond does not refer to the regularity of the blocks because it is always regular. It only refers to whether the 1-interval sub-block is belong to the regular or irregular supra-block.
 
+### Start Block Code: 241
+### End Block Code: 245
+
 ### Practice Trial Code: 249
 
 ### Instruction Page Code: 250
